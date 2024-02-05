@@ -86,7 +86,12 @@ func TestProduct_GetStatus(t *testing.T) {
 }
 
 func TestProduct_NewProduct(t *testing.T) {
-	product, err := application.NewProduct(uuid.NewV4().String(), "Product Test", 10, application.ENABLED)
-	require.Nil(t, err)
+	product := application.NewProduct()
+	product.Name = "Product Test"
+	product.Price = 10
+
 	require.Equal(t, "Product Test", product.GetName())
+	require.Equal(t, 10.00, product.Price)
+	require.NotEmpty(t, product.GetId())
+	require.Equal(t, application.DISABLED, product.GetStatus())
 }
