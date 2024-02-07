@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/IsaqueAmorim/hexagonal-architecture/application"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 type ProductDb struct {
@@ -22,4 +23,8 @@ func (p *ProductDb) Get(id string) (application.ProductInterface, error) {
 		return nil, err
 	}
 	return &product, nil
+}
+
+func NewProductDb(db *sql.DB) *ProductDb {
+	return &ProductDb{db: db}
 }
